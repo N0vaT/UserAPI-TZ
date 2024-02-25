@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.nova.userapi.maodel.EmailContact;
+import ru.nova.userapi.maodel.PhoneContact;
 
 import java.util.List;
 
@@ -16,4 +17,5 @@ public class UserDTO {
     private Long userId;
     private String login;
     private List<EmailContact> emails;
+    private List<PhoneContact> phones;
 }

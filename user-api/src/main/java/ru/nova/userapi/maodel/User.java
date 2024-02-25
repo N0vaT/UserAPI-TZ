@@ -29,5 +29,6 @@ public class User {
     private LocalDateTime dateOfCreation;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "owner", orphanRemoval = true)
     private List<EmailContact> emails;
-//    private List<PhoneContact> phones;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "owner", orphanRemoval = true)
+    private List<PhoneContact> phones;
 }
