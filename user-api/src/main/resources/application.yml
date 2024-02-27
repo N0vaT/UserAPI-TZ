@@ -6,10 +6,10 @@ spring:
     name: user-api
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/tz_users
+#    url: jdbc:postgresql://localhost:5432/tz_users
+    url: jdbc:postgresql://user_api_postgresql_container:5432/tz_users
     username: postgres
-#    password: postgres
-    password: 1111
+    password: postgres
   jpa:
     hibernate:
       ddl-auto: none
