@@ -32,9 +32,9 @@
 | /user-api/v1/users           | GET         | Get all users            
 | /user-api/v1/users/{userId}  | GET         | Get user by Id           
 | /user-api/v1/users           | POST        | Create new user          
-| /user-api/v1/users{userId}   | PATCH       | Edit not null filds user 
-| /user-api/v1/users{userId}   | PUT         | Edit user                
-| /user-api/v1/users{userId}   | DELETE      | Delete user              
+| /user-api/v1/users/{userId}   | PATCH       | Edit not null filds user 
+| /user-api/v1/users/{userId}   | PUT         | Edit user                
+| /user-api/v1/users/{userId}   | DELETE      | Delete user              
 
 ---
 
