@@ -2,10 +2,8 @@ package ru.nova.userapi.maodel.mapper;
 
 import org.springframework.stereotype.Component;
 import ru.nova.userapi.maodel.EmailContact;
-import ru.nova.userapi.maodel.PhoneContact;
 import ru.nova.userapi.maodel.User;
 import ru.nova.userapi.maodel.dto.EmailContactDTO;
-import ru.nova.userapi.maodel.dto.PhoneContactDTO;
 
 @Component
 public class EmailContactMapper {

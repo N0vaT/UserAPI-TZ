@@ -5,8 +5,6 @@ import org.springframework.stereotype.Component;
 import ru.nova.userapi.maodel.User;
 import ru.nova.userapi.maodel.dto.UserDTO;
 
-import java.util.ArrayList;
-
 @Component
 @RequiredArgsConstructor
 public class UserMapper {
