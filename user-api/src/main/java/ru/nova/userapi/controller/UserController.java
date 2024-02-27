@@ -2,13 +2,13 @@ package ru.nova.userapi.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.nova.userapi.exception.UserNotFoundException;
 import ru.nova.userapi.maodel.User;
 import ru.nova.userapi.maodel.dto.UserDTO;
+import ru.nova.userapi.maodel.mapper.UserMapper;
 import ru.nova.userapi.service.UserService;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-    private final ModelMapper modelMapper;
+    private final UserMapper userMapper;
 
     @GetMapping
     public ResponseEntity<List<UserDTO>> getUsers(@RequestParam(required = false, defaultValue = "0") int pageNumber,
@@ -28,7 +28,56 @@ public class UserController {
     {
         List<User> users = userService.findAll(pageNumber, pageSize, direction, sortByField);
         return ResponseEntity.ok(users.stream()
-                .map(u -> modelMapper.map(u, UserDTO.class))
+                .map(userMapper::toDto)
                 .toList());
+    }
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserDTO> getUser(@PathVariable long userId){
+        ResponseEntity<UserDTO> response;
+        try {
+            User user = userService.findById(userId);
+            response = new ResponseEntity<>(userMapper.toDto(user), HttpStatus.OK);
+        }catch (UserNotFoundException e){
+            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return response;
+    }
+    @PostMapping
+    public ResponseEntity<UserDTO> addUser(@RequestBody UserDTO userDTO){
+        User user = userMapper.toUser(userDTO);
+        return new ResponseEntity<>(userMapper.toDto(userService.create(user)), HttpStatus.OK);
+    }
+    @PatchMapping("/{userId}")
+    public ResponseEntity<UserDTO> patchUpdateUser(@PathVariable long userId,
+                                                   @RequestBody UserDTO userDTO){
+        ResponseEntity<UserDTO> response;
+        try {
+            User user = userMapper.toUser(userDTO);
+            response = new ResponseEntity<>(userMapper.toDto(userService.patchUpdate(user, userId)), HttpStatus.OK);
+        }catch (UserNotFoundException e){
+            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return response;
+    }
+    @PutMapping("/{userId}")
+    public ResponseEntity<UserDTO> putUpdateUser(@PathVariable long userId,
+                                                 @RequestBody UserDTO userDTO){
+        ResponseEntity<UserDTO> response;
+        try {
+            User user = userService.putUpdate(userMapper.toUser(userDTO), userId);
+            response = new ResponseEntity<>(userMapper.toDto(user), HttpStatus.OK);
+        }catch (UserNotFoundException e){
+            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return response;
+    }
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<Long> deleteUser(@PathVariable long userId){
+        try {
+            userService.delete(userId);
+            return new ResponseEntity<>(userId, HttpStatus.OK);
+        }catch (UserNotFoundException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }

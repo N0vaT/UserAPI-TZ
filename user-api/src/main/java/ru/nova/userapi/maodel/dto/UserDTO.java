@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import ru.nova.userapi.maodel.EmailContact;
 import ru.nova.userapi.maodel.PhoneContact;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -16,6 +17,7 @@ import java.util.List;
 public class UserDTO {
     private Long userId;
     private String login;
-    private List<EmailContact> emails;
-    private List<PhoneContact> phones;
+    private LocalDateTime dateOfCreation;
+    private List<EmailContactDTO> emails;
+    private List<PhoneContactDTO> phones;
 }

@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS tz_phones
     phone_id serial NOT NULL,
     phone varchar(30) NOT NULL,
     date_of_addition timestamp NOT NULL,
-    owner_id integer NOT NULL,
+    owner_id integer,
     CONSTRAINT pk_phone PRIMARY KEY (phone_id),
     CONSTRAINT fk_phones_owner FOREIGN KEY (owner_id) REFERENCES tz_users (user_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS tz_emails
     email_id serial NOT NULL,
     email varchar(30) NOT NULL,
     date_of_addition timestamp NOT NULL,
-    owner_id integer NOT NULL,
+    owner_id integer,
     CONSTRAINT pk_email PRIMARY KEY (email_id),
     CONSTRAINT fk_email_owner FOREIGN KEY (owner_id) REFERENCES tz_users (user_id) ON UPDATE CASCADE ON DELETE CASCADE
 );

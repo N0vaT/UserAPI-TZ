@@ -1,10 +1,7 @@
 package ru.nova.userapi.maodel;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -27,8 +24,9 @@ public class EmailContact {
     @Column(name = "date_of_addition")
     private LocalDateTime dateOfAddition;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "owner_id")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @JsonIgnore
     private User owner;
 }
